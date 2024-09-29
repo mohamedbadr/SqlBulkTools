@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>SQL Bulk Tools</Title>
+    <Authors>Mohamed Badr</Authors>
+    <Company />
+    <Description>A solution for handling large-scale data transfers and updates to SQL Server databases.</Description>
+    <PackageIcon>logo.jpeg</PackageIcon>
+    <PackageTags>SQL Server; Bulk; Bulk Operations</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Users\Mohamed\Desktop\logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+</Project>
