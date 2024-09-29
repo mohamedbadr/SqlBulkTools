@@ -11,10 +11,11 @@
     <Description>A solution for handling large-scale data transfers and updates to SQL Server databases.</Description>
     <PackageIcon>logo.jpeg</PackageIcon>
     <PackageTags>SQL Server; Bulk; Bulk Operations</PackageTags>
+    <PackageId>Utilities.SqlBulkTools</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\..\Users\Mohamed\Desktop\logo.jpeg">
+    <None Include="C:\Users\engma\OneDrive\Desktop\logo.jpeg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -22,6 +23,13 @@
 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
