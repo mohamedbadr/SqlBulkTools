@@ -8,10 +8,12 @@
     <Title>SQL Bulk Tools</Title>
     <Authors>Mohamed Badr</Authors>
     <Company />
-    <Description>A solution for handling large-scale data transfers and updates to SQL Server databases.</Description>
+    <Description>This NuGet package provides efficient methods for performing bulk insert and update operations on SQL Server databases. It can significantly improve performance compared to traditional row-by-row methods, especially when dealing with large datasets.</Description>
     <PackageIcon>logo.jpeg</PackageIcon>
     <PackageTags>SQL Server; Bulk; Bulk Operations</PackageTags>
     <PackageId>Utilities.SqlBulkTools</PackageId>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +29,15 @@
 
   <ItemGroup>
     <None Update="assets\logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
