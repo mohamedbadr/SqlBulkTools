@@ -14,9 +14,16 @@
     <PackageId>Utilities.SqlBulkTools</PackageId>
     <PackageLicenseFile>license.txt</PackageLicenseFile>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <AssemblyVersion>10.0.1</AssemblyVersion>
+    <FileVersion>10.0.1</FileVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\..\Users\Mohamed\Desktop\logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="C:\Users\engma\OneDrive\Desktop\logo.jpeg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -24,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
   </ItemGroup>
 
   <ItemGroup>

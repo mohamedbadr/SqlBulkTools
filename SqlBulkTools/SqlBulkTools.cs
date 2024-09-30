@@ -1,8 +1,8 @@
-﻿using SqlBulkTools.Core;
+﻿using Microsoft.Data.SqlClient;
+using SqlBulkTools.Core;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace SqlBulkTools
@@ -20,7 +20,7 @@ namespace SqlBulkTools
         /// <param name="connectionString">Connection string</param>
         /// <param name="tableName">Table name to be inserted</param>
         /// <param name="commitBatchSize">batch size for every page to be inserted</param>
-        public SqlBulkTools(string connectionString,string tableName,int commitBatchSize)
+        public SqlBulkTools(string connectionString, string tableName, int commitBatchSize)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -61,6 +61,16 @@ namespace SqlBulkTools
                 await connection.CloseAsync();
 
                 throw;
+            }
+        }
+
+        public async Task BulkInsertAsync<T>(SqlConnection connection, IDbTransaction transaction, IList<T> data)
+        {
+            var pages = (data.Count / _commitBatchSize) + (data.Count % _commitBatchSize == 0 ? 0 : 1);
+            for (var page = 0; page < pages; page++)
+            {
+                var dt = data.Skip(page * _commitBatchSize).Take(_commitBatchSize).ToDataTable();
+                await BulkInsert(dt, connection, transaction);
             }
         }
 
@@ -108,6 +118,35 @@ namespace SqlBulkTools
                 await transaction?.CommitAsync()!;
                 conn.Close();
             }
+        }
+
+        public async Task BulkUpdateAsync<T>(SqlConnection connection, IDbTransaction transaction, IList<T> data)
+        {
+            var dt = data.ToDataTable();
+
+            await using var command = new SqlCommand("", connection);
+            command.Transaction = transaction as SqlTransaction;
+
+
+            //Creating temp table on database
+            command.CommandText = GenerateCreateTableScript<T>();
+            await command.ExecuteNonQueryAsync();
+
+            //Bulk insert into temp table
+            using (var bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction as SqlTransaction))
+            {
+                bulkCopy.BulkCopyTimeout = 660;
+                bulkCopy.DestinationTableName = TempTableName;
+                await bulkCopy.WriteToServerAsync(dt);
+                bulkCopy.Close();
+            }
+
+            // Updating destination table, and dropping temp table
+            command.CommandTimeout = 300;
+            command.CommandText = GenerateUpdateScript<T>(_tableName);
+            await command.ExecuteNonQueryAsync();
+
+
         }
 
         private async Task BulkInsert(DataTable dt, SqlConnection connection, IDbTransaction transaction)
