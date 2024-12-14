@@ -1,6 +1,5 @@
 <html>
 <head>
-<title>SQL Bulk Tools</title>
 </head>
 <body>
 
@@ -30,13 +29,16 @@
 <h2>Usage:</h2>
 
 ```csharp
-using BulkOperations;
+using SqlBulkTools;
 
-// Initiate object of SqlBulkTools
-var sqlBulkTools = new SqlBulkTools(ConnectionString, "TableName");
+// Initiate object of BulkOperations class
+var bulkOperations = new BulkOperations(ConnectionString, "TableName");
+
+// or ovedrride the default batch size tomake it faster for large datasets
+var bulkOperations = new BulkOperations(ConnectionString, "TableName",100000);
 
 // Perform a bulk insert
-await sqlBulkTools.BulkInsertAsync(data)
+await bulkOperations.BulkInsertAsync(data)
 
 // Perform a bulk update
-await sqlTools.BulkUpdateAsync(list)
+await bulkOperations.BulkUpdateAsync(list)

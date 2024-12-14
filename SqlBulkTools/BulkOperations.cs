@@ -1,5 +1,4 @@
 ﻿using SqlBulkTools.Core;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,7 +6,7 @@ using System.Text;
 
 namespace SqlBulkTools
 {
-    public class SqlBulkTools
+    public class BulkOperations
     {
         private readonly string _connectionString;
         private readonly string _tableName;
@@ -20,7 +19,7 @@ namespace SqlBulkTools
         /// <param name="connectionString">Connection string</param>
         /// <param name="tableName">Table name to be inserted</param>
         /// <param name="commitBatchSize">batch size for every page to be inserted</param>
-        public SqlBulkTools(string connectionString,string tableName,int commitBatchSize)
+        public BulkOperations(string connectionString, string tableName, int commitBatchSize)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -32,7 +31,7 @@ namespace SqlBulkTools
         /// </summary>
         /// <param name="connectionString">Connection string</param>
         /// <param name="tableName">Table name to be inserted</param>
-        public SqlBulkTools(string connectionString, string tableName)
+        public BulkOperations(string connectionString, string tableName)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -110,7 +109,7 @@ namespace SqlBulkTools
             }
         }
 
-        private async Task BulkInsert(DataTable dt, SqlConnection connection, IDbTransaction transaction)
+        private Task BulkInsert(DataTable dt, SqlConnection connection, IDbTransaction transaction)
         {
             var bulkCopy =
                 new SqlBulkCopy
@@ -125,7 +124,7 @@ namespace SqlBulkTools
                 };
 
 
-            await bulkCopy.WriteToServerAsync(dt);
+            return bulkCopy.WriteToServerAsync(dt);
         }
 
         private static string GenerateCreateTableScript<T>()
@@ -187,15 +186,6 @@ namespace SqlBulkTools
             sb.Append($" FROM {tableName} T INNER JOIN {TempTableName} Temp ON T.{primaryKey.Name} = Temp.{primaryKey.Name}; DROP TABLE {TempTableName};");
 
             return sb.ToString();
-        }
-
-        private void Validate()
-        {
-            if (string.IsNullOrWhiteSpace(_connectionString))
-                throw new InvalidEnumArgumentException("Connection string is not set.");
-
-            if (string.IsNullOrWhiteSpace(_tableName))
-                throw new InvalidEnumArgumentException("Table name is not set.");
         }
     }
 }

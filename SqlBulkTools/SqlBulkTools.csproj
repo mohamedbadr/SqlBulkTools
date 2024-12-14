@@ -14,14 +14,10 @@
     <PackageId>Utilities.SqlBulkTools</PackageId>
     <PackageLicenseFile>license.txt</PackageLicenseFile>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <Version>1.0.4</Version>
+    <PackageProjectUrl>https://github.com/mohamedbadr/SqlBulkTools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mohamedbadr/SqlBulkTools</RepositoryUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="C:\Users\engma\OneDrive\Desktop\logo.jpeg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
@@ -36,6 +32,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Update="logo.jpeg">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
     </None>
     <None Update="readme.md">
       <Pack>True</Pack>
