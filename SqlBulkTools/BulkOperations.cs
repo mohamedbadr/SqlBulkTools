@@ -1,7 +1,7 @@
-﻿using SqlBulkTools.Core;
+﻿using Microsoft.Data.SqlClient;
+using SqlBulkTools.Core;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace SqlBulkTools
@@ -60,6 +60,16 @@ namespace SqlBulkTools
                 await connection.CloseAsync();
 
                 throw;
+            }
+        }
+
+        public async Task BulkInsertAsync<T>(SqlConnection connection, IDbTransaction transaction, IList<T> data)
+        {
+            var pages = (data.Count / _commitBatchSize) + (data.Count % _commitBatchSize == 0 ? 0 : 1);
+            for (var page = 0; page < pages; page++)
+            {
+                var dt = data.Skip(page * _commitBatchSize).Take(_commitBatchSize).ToDataTable();
+                await BulkInsert(dt, connection, transaction);
             }
         }
 
