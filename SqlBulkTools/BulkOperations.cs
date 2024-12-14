@@ -1,8 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using SqlBulkTools.Core;
+﻿using SqlBulkTools.Core;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Text;
+using Microsoft.Data.SqlClient;
 
 namespace SqlBulkTools
 {
