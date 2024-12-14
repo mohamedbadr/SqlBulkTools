@@ -1,6 +1,5 @@
 <html>
 <head>
-<title>SQL Bulk Tools</title>
 </head>
 <body>
 
